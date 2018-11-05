@@ -98,7 +98,7 @@ public class ClassInformationService extends IntentService {
 
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
 
-        
+
         LastWidget.updateClassWidget(this, appWidgetManager, finalList);
 
     }

@@ -47,6 +47,7 @@ public class LastWidget extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+        ClassInformationService.startActionUpdateClass(context);
         // There may be multiple widgets active, so update all of them
       //String classList = "no class data";
         //for (int appWidgetId : appWidgetIds) {
