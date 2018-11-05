@@ -16,16 +16,17 @@ import com.semckinley.harknesstracker.ClassInformationService;
  */
 public class LastWidget extends AppWidgetProvider {
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                int appWidgetId) {
+    static String mClassList;
+    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, String classList, int appWidgetId) {
 
         //CharSequence widgetText = message;
+
         CharSequence widgetText = context.getString(R.string.appwidget_text);
+
+
+
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.last_widget);
 
-       // LocalBroadcastManager.getInstance(context).registerReceiver();
-
-       //SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
 
         Intent intent = new Intent(context, ClassInformationService.class);
         intent.setAction(ClassInformationService.ACTION_UPDATE_CLASS);
@@ -34,8 +35,9 @@ public class LastWidget extends AppWidgetProvider {
         String message = "this is a widget";
 
 
-
-        views.setTextViewText(R.id.appwidget_text, widgetText);
+        if(classList ==null) {
+            views.setTextViewText(R.id.appwidget_text, widgetText);
+        } else {views.setTextViewText(R.id.appwidget_text, classList );}
         views.setOnClickPendingIntent(R.id.appwidget_text, pendingIntent);
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
@@ -46,11 +48,16 @@ public class LastWidget extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
-        for (int appWidgetId : appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, appWidgetId);
-        }
+      //String classList = "no class data";
+        //for (int appWidgetId : appWidgetIds) {
+          //  updateAppWidget(context, appWidgetManager, appWidgetId);
+       // }
     }
+    public static void updateClassWidget(Context context, AppWidgetManager appWidgetManager, String classList){
+        mClassList = classList;
+        updateAppWidget(context, appWidgetManager, classList,0);
 
+    }
     @Override
     public void onEnabled(Context context) {
         // Enter relevant functionality for when the first widget is created

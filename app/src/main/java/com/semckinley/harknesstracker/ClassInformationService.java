@@ -1,6 +1,7 @@
 package com.semckinley.harknesstracker;
 
 import android.app.IntentService;
+import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.content.Context;
 import android.database.Cursor;
@@ -60,8 +61,9 @@ public class ClassInformationService extends IntentService {
 
     private void handleActionUpdateClass(){
 
-        StudentDbHelper studentDbHelper = new StudentDbHelper((mContext));
-        SQLiteDatabase dB = studentDbHelper.getReadableDatabase();
+        //StudentDbHelper studentDbHelper = new StudentDbHelper((mContext));
+        //SQLiteDatabase dB = studentDbHelper.getReadableDatabase();
+        String finalList = "classList should go here";
         Uri uri = Uri.parse(StudentContract.StudentEntry.TABLE_NAME);
         Cursor  cursor = getContentResolver().query(uri,
                 null,
@@ -69,28 +71,35 @@ public class ClassInformationService extends IntentService {
                 null,
                 null,
                 null);
-        int count = cursor.getCount();
+        if(cursor != null) {
+            int count = cursor.getCount();
 
 
-        StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
 
-        for (int i =0; i < count; i++)
+            for (int i = 0; i < count; i++)
 
-        {        cursor.moveToPosition(i);
+            {
+                cursor.moveToPosition(i);
 
-            String name = cursor.getString(cursor.getColumnIndex(StudentContract.StudentEntry.COLUMN_STUDENT_NAME));
+                String name = cursor.getString(cursor.getColumnIndex(StudentContract.StudentEntry.COLUMN_STUDENT_NAME));
 
-            String num_speak = Integer.toString(cursor.getInt(cursor.getColumnIndex(StudentContract.StudentEntry.COLUMN_COUNT)));
+                String num_speak = Integer.toString(cursor.getInt(cursor.getColumnIndex(StudentContract.StudentEntry.COLUMN_COUNT)));
 
 
-            sb.append(name + ": " + num_speak);
+                sb.append(name + ": " + num_speak);
 
-            sb.append("\n");
+                sb.append("\n");
 
+            }
+            cursor.close();
+            finalList = sb.toString();
         }
-        String finalList = sb.toString();
-       // LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent.putExtra("ClassList", finalList));
-        //PreferenceManager.getDefaultSharedPreferences(this).edit().putString("ClassList", finalList);
+
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
+
+        
+        LastWidget.updateClassWidget(this, appWidgetManager, finalList);
 
     }
 }
