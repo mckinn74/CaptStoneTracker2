@@ -34,7 +34,7 @@ public class LastWidget extends AppWidgetProvider {
         String message = "this is a widget";
 
 
-        
+
         views.setTextViewText(R.id.appwidget_text, widgetText);
         views.setOnClickPendingIntent(R.id.appwidget_text, pendingIntent);
         // Instruct the widget manager to update the widget
