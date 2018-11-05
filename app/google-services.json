@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "223433287471",
+    "firebase_url": "https://discussiontracker-41658.firebaseio.com",
+    "project_id": "discussiontracker-41658",
+    "storage_bucket": "discussiontracker-41658.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:223433287471:android:3805cbd0f6c4db46",
+        "android_client_info": {
+          "package_name": "com.semckinley.harknesstracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "223433287471-55pmpdk9qttv6nlc5egph2k87b0ams3o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrRXJd7O3dz11iBu8lKiyvnmrcM3ZtHyo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

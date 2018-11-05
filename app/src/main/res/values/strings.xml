@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Harkness Tracker</string>
+    <string name="add_button">Add</string>
+    <string name="add_name">Enter Student Name Here</string>
+    <string name="submit_button">Open Class</string>
+    <string name="clear_button">Clear Database</string>
+    <string name="E"></string>
+    <string name="default_pause">No Pause</string>
+    <string name="pause_button">Awkward Pause</string>
+    <string name="email_prompt">Enter Your Email</string>
+    <string name="password_prompt">Enter your Password</string>
+    <string name="create_account">New Account</string>
+    <string name="log_in">Log In</string>
+    <string name = "directions">Click Log in if you have an account, or New Account if this is your first time.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="default_name">Student Name</string>
+    <string name="default_count">Count: 0</string>
+    <string name="default_time">Time Spoken: 0:00:00</string>
+    <string name="attentive">Attentive</string>
+    <string name="disruptive">Disruptive</string>
+    <string name="distracted">Distracted</string>
+    <string-array name="Comments">
+        <item>Well Prepared</item>
+        <item>Relevant Questions</item>
+        <item>Respectful Commentary</item>
+        <item>Takes Risks</item>
+        <item>Saved Discussion</item>
+        <item>Examples/Quotations for Material</item>
+        <item>Interruption of Concept with new Concept</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="appwidget_text">Last Discussion was:  </string>
+    <string name="add_widget">Add widget</string>
+</resources>
