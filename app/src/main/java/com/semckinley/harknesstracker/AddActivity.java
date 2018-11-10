@@ -1,5 +1,6 @@
 package com.semckinley.harknesstracker;
 
+import android.app.ActivityOptions;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
@@ -28,6 +30,7 @@ import com.semckinley.harknesstracker.data.StudentInfo;
 import com.semckinley.harknesstracker.data.SubjectPeriod;
 
 import com.google.android.gms.ads.MobileAds;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,28 +49,24 @@ public class AddActivity extends AppCompatActivity {
   //  private FirebaseDatabase mDatabase;
    // private DatabaseReference mDatabaseReference;
     private InterstitialAd mAd;
-
-
+    private static final String AD_CODE = "ca-app-pub-5879971744303882~6870610705";
+    private static final String NO_AD = "No ad ready";
+    private static final String TAG = "Tag";
+    private static final String INTERSTITIAL = "ca-app-pub-5879971744303882/7058312966";
+    private static final String NO_NAME = "No name entered";
+    private static final String DISTRACTED = "Distracted";
+    private static final String WELL_PREP= "Well prepared";
 
     @Override
     public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addclass_info);
         String teacherID = getIntent().getStringExtra("ID");
-        MobileAds.initialize(this,"ca-app-pub-5879971744303882~6870610705" );
+        MobileAds.initialize(this, AD_CODE );
         mAd = new InterstitialAd(this);
-        mAd.setAdUnitId("ca-app-pub-5879971744303882/7058312966");
+        mAd.setAdUnitId(INTERSTITIAL);
         mAd.loadAd(new AdRequest.Builder().build());
-       /*mDatabase = FirebaseDatabase.getInstance();
-        mDatabaseReference = mDatabase.getReference("User").child(teacherID);
-        List<StudentInfo> studentList = new ArrayList<StudentInfo>();
-        StudentInfo studentInfo = new StudentInfo("Jill", 1, 2.5);
-        StudentInfo studentInfo1 = new StudentInfo("Bob", 1, 3.0);
-        studentList.add(studentInfo);
-        studentList.add(studentInfo);
-        studentList.add(studentInfo1);
-        SubjectPeriod subjectPeriod = new SubjectPeriod("First Hour", studentList);
-        mDatabaseReference.push().setValue(subjectPeriod);*/
+
         
 
         FirebaseAuth.getInstance().signOut();
@@ -92,19 +91,19 @@ public class AddActivity extends AppCompatActivity {
                     cv.put(StudentContract.StudentEntry.COLUMN_MINUTES, 0);
                     cv.put(StudentContract.StudentEntry.COLUMN_SECONDS, 0);
                     cv.put(StudentContract.StudentEntry.COLUMN_MILLISECONDS, 0);
-                    cv.put(StudentContract.StudentEntry.COLUMN_ATTENTION, "Distracted");
-                    cv.put(StudentContract.StudentEntry.COLUMN_COMMENT1, "Well Prepared");
-                    cv.put(StudentContract.StudentEntry.COLUMN_COMMENT2, "Relevant Questions");
-                    cv.put(StudentContract.StudentEntry.COLUMN_COMMENT3, "Saved Discussion");
+                    cv.put(StudentContract.StudentEntry.COLUMN_ATTENTION, DISTRACTED);
+                    cv.put(StudentContract.StudentEntry.COLUMN_COMMENT1, WELL_PREP);
+                    cv.put(StudentContract.StudentEntry.COLUMN_COMMENT2, WELL_PREP);
+                    cv.put(StudentContract.StudentEntry.COLUMN_COMMENT3, WELL_PREP);
 
 
                         mDb.insert(StudentContract.StudentEntry.TABLE_NAME, null, cv);
 
 
                     mStudentName.setText("");}
-                    else{mStudentName.setText("No name Entered");}
+                    else{mStudentName.setText(NO_NAME);}
                 }});
-
+        //final ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(this);
             mSubmitButton = (Button) findViewById(R.id.submit_button);
            mSubmitButton.setOnClickListener(new View.OnClickListener(){
                 @Override
@@ -112,7 +111,7 @@ public class AddActivity extends AppCompatActivity {
                    if (mAd.isLoaded()) {
                         mAd.show();
                     } else {
-                        Log.d("TAG", "There isn't an ad ready.");
+                        Log.d(TAG, NO_AD);
                     }
 
                     Intent intent = new Intent(AddActivity.this, MainActivity.class);
@@ -130,6 +129,8 @@ public class AddActivity extends AppCompatActivity {
                }
            });
 
+        ImageView imageView = (ImageView) findViewById(R.id.iv_picasso);
+        Picasso.get().load("http://i.imgur.com/DvpvklR.png").into(imageView);
     }
 
 

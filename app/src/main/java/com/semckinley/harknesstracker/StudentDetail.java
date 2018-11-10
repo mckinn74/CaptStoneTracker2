@@ -7,15 +7,16 @@ import android.content.Intent;
 
 
 public class StudentDetail extends AppCompatActivity {
+    public static String STUDENT_NAME = "student_name";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_detail);
         Intent intent = getIntent();
-        String student_name = intent.getStringExtra("student_name");
+        String student_name = intent.getStringExtra(STUDENT_NAME);
         Bundle b = new Bundle();
-        b.putString("student_name", student_name);
+        b.putString(STUDENT_NAME, student_name);
 
         StudentDetailFragment sdFragment = new StudentDetailFragment();
         sdFragment.setArguments(b);

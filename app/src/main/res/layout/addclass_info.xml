@@ -31,4 +31,11 @@
         android:layout_gravity="center|bottom"
         android:id="@+id/clear_button"
         android:text="@string/clear_button"/>
+
+    <ImageView
+        android:layout_width="@dimen/spinner_width"
+        android:layout_height="@dimen/spinner_height"
+        android:contentDescription="@string/picasso"
+        android:id="@+id/iv_picasso"
+        android:layout_gravity="bottom|end"/>
 </LinearLayout>

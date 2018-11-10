@@ -44,6 +44,12 @@ public class  StudentDetailFragment extends Fragment implements AdapterView.OnIt
     Boolean isFirstItemSelected0 = true;
     Boolean isFirstItemSelected1 = true;
     Boolean isFirstItemSelected2 = true;
+    private static final String NOTHING = "nothing";
+    private static final String STUDENT_NAME = "student_name";
+    private static final String TIME = "Time: ";
+    private static final String COUNT = "Count: ";
+    private static final String SELECTED = "You selected: ";
+    private static final String QUESTION = " =? ";
     public StudentDetailFragment() {
         // Required empty public constructor
     }
@@ -101,11 +107,11 @@ public class  StudentDetailFragment extends Fragment implements AdapterView.OnIt
         mSpinner3.setAdapter(adapter3);
         mSpinner3.setOnItemSelectedListener(this);
         if(mDB != null && getArguments() != null ){
-            String student_name = getArguments().getString("student_name");
+            String student_name = getArguments().getString(STUDENT_NAME);
             String [] studentName = {"" + student_name};
             mStudentName.setText(student_name);
 
-            String sColumns = "" +StudentContract.StudentEntry.COLUMN_STUDENT_NAME +" =? ";
+            String sColumns = "" +StudentContract.StudentEntry.COLUMN_STUDENT_NAME + QUESTION ;
             mCursor = mDB.query(StudentContract.StudentEntry.TABLE_NAME, null , sColumns, studentName,
                     null, null, null,
                     null);
@@ -118,11 +124,11 @@ public class  StudentDetailFragment extends Fragment implements AdapterView.OnIt
 
             String comment3 = mCursor.getString(mCursor.getColumnIndex(StudentContract.StudentEntry.COLUMN_COMMENT3));
             mSpinner3.setSelection(adapter3.getPosition(comment3));
-            String time = "Time: " + mCursor.getInt(mCursor.getColumnIndex(StudentContract.StudentEntry.COLUMN_MINUTES)) +":"
+            String time = TIME + mCursor.getInt(mCursor.getColumnIndex(StudentContract.StudentEntry.COLUMN_MINUTES)) +":"
                     + mCursor.getInt(mCursor.getColumnIndex(StudentContract.StudentEntry.COLUMN_SECONDS));
             mTimeView.setText(time );
 
-            String count = "Count: " + mCursor.getInt(mCursor.getColumnIndex(StudentContract.StudentEntry.COLUMN_COUNT));
+            String count = COUNT + mCursor.getInt(mCursor.getColumnIndex(StudentContract.StudentEntry.COLUMN_COUNT));
                     mCountView.setText(count);
             mCursor.close();
         }
@@ -166,7 +172,7 @@ public class  StudentDetailFragment extends Fragment implements AdapterView.OnIt
        else{
             ContentValues cv = new ContentValues();
 
-            String selected ="nothing";
+            String selected =NOTHING;
         if(adapterView.equals(mSpinner1)) {
             selected = mSpinner1.getItemAtPosition(i).toString();
             cv.put(StudentContract.StudentEntry.COLUMN_COMMENT1, selected);
@@ -176,17 +182,17 @@ public class  StudentDetailFragment extends Fragment implements AdapterView.OnIt
                  cv.put(StudentContract.StudentEntry.COLUMN_COMMENT2, selected);
 
         }
-        else if(adapterView.equals(mSpinner3)){
-                    selected = mSpinner3.getItemAtPosition(i).toString();
-                    cv.put(StudentContract.StudentEntry.COLUMN_COMMENT3, selected);
+        else if(adapterView.equals(mSpinner3)) {
+            selected = mSpinner3.getItemAtPosition(i).toString();
+            cv.put(StudentContract.StudentEntry.COLUMN_COMMENT3, selected);
 
-        }
-            String selection ="" + StudentContract.StudentEntry._ID + " = ?";
+
+            String selection ="" + StudentContract.StudentEntry._ID + QUESTION ;
             String [] selectionArgs = {mID};
             mDB.update(StudentContract.StudentEntry.TABLE_NAME, cv, selection, selectionArgs);
 
-      Toast.makeText(mContext, "You selected: " + selected, Toast.LENGTH_LONG).show();}
-    }
+      Toast.makeText(mContext, SELECTED + selected, Toast.LENGTH_LONG).show();}
+    }}
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {

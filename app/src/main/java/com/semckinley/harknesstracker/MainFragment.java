@@ -54,6 +54,9 @@ public class MainFragment extends Fragment implements HarkAdapter.HarkStudentCli
     public long timeBuff, pauseMillis = 0L;
     FloatingActionButton mFab;
     private Boolean phoneFormat = false;
+    private static final String PHONE = "phone";
+    private static final String STUDENT_NAME = "student_name";
+    private static final String PAUSED_FOR = "Paused for: ";
 
 
     public MainFragment() {
@@ -74,7 +77,7 @@ public class MainFragment extends Fragment implements HarkAdapter.HarkStudentCli
         View rootView = inflater.inflate(R.layout.fragment_class_detail, container, false);
         mFab = rootView.findViewById(R.id.floatingActionButton2);
         if(getArguments() != null)
-        { phoneFormat = getArguments().getBoolean("phone");}
+        { phoneFormat = getArguments().getBoolean(PHONE);}
        if(phoneFormat){
              mFab.setVisibility(View.VISIBLE);
         mFab.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +85,7 @@ public class MainFragment extends Fragment implements HarkAdapter.HarkStudentCli
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), StudentDetail.class);
                 String student_name = cursor.getString(cursor.getColumnIndex(StudentContract.StudentEntry.COLUMN_STUDENT_NAME));
-                intent.putExtra("student_name", student_name);
+                intent.putExtra(STUDENT_NAME, student_name);
                 startActivity(intent);
             }
         });
@@ -204,7 +207,7 @@ public class MainFragment extends Fragment implements HarkAdapter.HarkStudentCli
         public void run(){
             startClick= false;
 
-            pauseTime.setText("Paused for: " + String.format("%02d", stopwatch.elapsed(TimeUnit.MILLISECONDS)/1000/60) + ":" +
+            pauseTime.setText( PAUSED_FOR+ String.format("%02d", stopwatch.elapsed(TimeUnit.MILLISECONDS)/1000/60) + ":" +
                     String.format("%02d", stopwatch.elapsed(TimeUnit.MILLISECONDS)/1000%60) );
 
             mHandler.postDelayed(runnable, 0);

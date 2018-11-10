@@ -2,6 +2,7 @@ package com.semckinley.harknesstracker;
 
 import android.app.IntentService;
 import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.Context;
 import android.database.Cursor;
@@ -11,6 +12,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.widget.Toast;
 
+import com.semckinley.harknesstracker.data.StudentContentProvider;
 import com.semckinley.harknesstracker.data.StudentContract;
 import com.semckinley.harknesstracker.data.StudentDbHelper;
 
@@ -26,10 +28,14 @@ public class ClassInformationService extends IntentService {
 
     public static final String ACTION_UPDATE_CLASS = "com.semckinley.harknesstracker.action.UPDATE_CLASS";
     private static Context mContext;
+    public static final String CLASS_NAME = "ClassInformationService";
+    public static final String DEFAULT_MESSAGE = "Class list should go here";
+    public static final String COLON = ": ";
+    public static final String NEW_LINE = "\n";
 
 
     public ClassInformationService() {
-        super("ClassInformationService");
+        super(CLASS_NAME);
     }
 
 
@@ -61,11 +67,11 @@ public class ClassInformationService extends IntentService {
 
     private void handleActionUpdateClass(){
 
-        //StudentDbHelper studentDbHelper = new StudentDbHelper((mContext));
-        //SQLiteDatabase dB = studentDbHelper.getReadableDatabase();
-        String finalList = "classList should go here";
-        Uri uri = Uri.parse(StudentContract.StudentEntry.TABLE_NAME);
-        Cursor  cursor = getContentResolver().query(uri,
+
+        String finalList = DEFAULT_MESSAGE;
+        Uri uri = Uri.parse(StudentContract.AUTHORITY);
+        Cursor  cursor =
+        getContentResolver().query(uri,
                 null,
                 null,
                 null,
@@ -87,9 +93,9 @@ public class ClassInformationService extends IntentService {
                 String num_speak = Integer.toString(cursor.getInt(cursor.getColumnIndex(StudentContract.StudentEntry.COLUMN_COUNT)));
 
 
-                sb.append(name + ": " + num_speak);
+                sb.append(name + COLON + num_speak);
 
-                sb.append("\n");
+                sb.append(NEW_LINE);
 
             }
             cursor.close();
@@ -97,9 +103,10 @@ public class ClassInformationService extends IntentService {
         }
 
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
+        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, LastWidget.class));
 
 
-        LastWidget.updateClassWidget(this, appWidgetManager, finalList);
+        LastWidget.updateClassWidget(mContext, appWidgetManager, finalList, appWidgetIds );
 
     }
 }

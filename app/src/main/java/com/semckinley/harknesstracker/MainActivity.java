@@ -27,6 +27,8 @@ import java.util.concurrent.TimeUnit;
 public class MainActivity extends AppCompatActivity implements HarkAdapter.HarkStudentClickListener, HarkAdapter.OnStudentSelection {
 
     private Boolean phoneFormat;
+    private static final String PHONE = "phone";
+    private static final String STUDENT_NAME = "student_name";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements HarkAdapter.HarkS
         }
         else{phoneFormat = false;}
         Bundle b = new Bundle();
-        b.putBoolean("phone", phoneFormat);
+        b.putBoolean(PHONE, phoneFormat);
 
         MainFragment mainFragment = new MainFragment();
         mainFragment.setArguments(b);
@@ -64,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements HarkAdapter.HarkS
            StudentDetailFragment sdFragment = new StudentDetailFragment();
            FragmentManager fragmentManager = getSupportFragmentManager();
            Bundle b = new Bundle();
-           b.putString("student_name", name);
+           b.putString(STUDENT_NAME, name);
            sdFragment.setArguments(b);
            fragmentManager.beginTransaction().replace(R.id.student_detail_container, sdFragment).commit();
        }

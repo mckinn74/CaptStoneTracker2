@@ -21,6 +21,8 @@ public class LogInActivity extends AppCompatActivity {
         private EditText mPassword;
         private Button mCreateAccount;
         private Button mLogIn;
+        private static final String ID = "ID";
+        private static final String AUTHENTICATION_FAILED = "Authentication Failed";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,12 +59,12 @@ public class LogInActivity extends AppCompatActivity {
 
                          FirebaseUser user = mAuth.getCurrentUser();
                         String userName = user.getUid();
-                        intent.putExtra("ID", userName);
+                        intent.putExtra(ID, userName);
                         startActivity(intent);
                     } else {
 
 
-                        Toast.makeText(LogInActivity.this, "Authentication failed.",
+                        Toast.makeText(LogInActivity.this, AUTHENTICATION_FAILED,
                                 Toast.LENGTH_SHORT).show();
 
                     }
@@ -82,11 +84,11 @@ public class LogInActivity extends AppCompatActivity {
                                 // Sign in success, update UI with the signed-in user's information
                                  FirebaseUser user = mAuth.getCurrentUser();
                                  String userName = user.getUid();
-                                 intent.putExtra("ID", userName);
+                                 intent.putExtra(ID, userName);
                                 startActivity(intent);
                             } else {
                                 // If sign in fails, display a message to the user.
-                                 Toast.makeText(LogInActivity.this, "Authentication failed.",
+                                 Toast.makeText(LogInActivity.this, AUTHENTICATION_FAILED,
                                         Toast.LENGTH_SHORT).show();
 
                             }

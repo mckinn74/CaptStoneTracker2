@@ -32,7 +32,6 @@ public class LastWidget extends AppWidgetProvider {
         intent.setAction(ClassInformationService.ACTION_UPDATE_CLASS);
 
         PendingIntent pendingIntent = PendingIntent.getService(context, 0, intent, 0);
-        String message = "this is a widget";
 
 
         if(classList ==null) {
@@ -54,10 +53,12 @@ public class LastWidget extends AppWidgetProvider {
           //  updateAppWidget(context, appWidgetManager, appWidgetId);
        // }
     }
-    public static void updateClassWidget(Context context, AppWidgetManager appWidgetManager, String classList){
+    public static void updateClassWidget(Context context, AppWidgetManager appWidgetManager, String classList, int[] appWidgetIds){
         mClassList = classList;
-        updateAppWidget(context, appWidgetManager, classList,0);
+        for (int appWidgetId : appWidgetIds) {
 
+            updateAppWidget(context, appWidgetManager, classList, appWidgetId);
+        }
     }
     @Override
     public void onEnabled(Context context) {

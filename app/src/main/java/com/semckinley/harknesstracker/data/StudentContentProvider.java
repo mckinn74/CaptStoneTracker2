@@ -19,6 +19,7 @@ public class StudentContentProvider extends ContentProvider {
     public final static int CLASS_NAME = 100;
     public final static int STUDENT_NAME = 101;
     private static final UriMatcher sUriMatcher = buildUriMatcher();
+    public static final String UNKNOWN = "Unknown uri: ";
 
     public static UriMatcher buildUriMatcher(){
         UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -53,7 +54,7 @@ public class StudentContentProvider extends ContentProvider {
                 break;
 
             default:
-                throw new UnsupportedOperationException("Unknown uri: " + uri);
+                throw new UnsupportedOperationException(UNKNOWN  + uri);
         }
         cursor.setNotificationUri(getContext().getContentResolver(), uri);
         return cursor;
